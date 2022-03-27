@@ -21,7 +21,7 @@ export default class PlayerSelectionCommand extends Command<CardSets, Payload>
 		}
 
 		const clientIndex = this.room.clients.findIndex(c => c.id === client.id)
-
+		
 		if (clientIndex !== this.room.state.activePlayer)
 		{
 			return
