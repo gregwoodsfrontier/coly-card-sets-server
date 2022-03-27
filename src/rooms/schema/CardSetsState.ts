@@ -4,19 +4,19 @@ import ICardSetsState, { GameState } from '../../types/ICardSetsState'
 export class CardSet extends Schema
 {
     @type(["number"])
-    setA = new ArraySchema<number>()
+    setA = new ArraySchema<number>(-1, -1)
 
     @type(["number"])
-    setB = new ArraySchema<number>()
+    setB = new ArraySchema<number>(-1, -1)
 
     @type(["number"])
-    setC = new ArraySchema<number>()
+    setC = new ArraySchema<number>(-1, -1)
 }
 
 export class Player extends Schema 
 {
     @type(["number"])
-    hand = new ArraySchema<number>()
+    hand = new ArraySchema<number>(-1, -1)
 
     @type({map: CardSet})
     sets = new MapSchema<CardSet>()
@@ -59,9 +59,7 @@ export class CardSetsState extends Schema implements ICardSetsState
 		this.common = new ArraySchema(-1, -1, -1, -1, -1, -1, -1)
 
         this.players = new MapSchema<Player>()
-        this.players.set("playerA", new Player())
-
-        console.log(this.deck)
+        // this.players.set("playerA", new Player())
 	}
 
     createDeck()
