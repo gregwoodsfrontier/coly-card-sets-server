@@ -15,7 +15,7 @@ export default class DistributeHandCommand extends Command<CardSets>
         this.room.clients.forEach(c => {
             const cardToDraw = this.room.state.deck.shift()
             const currPlayer = this.room.state.players.get(c.sessionId)
-            currPlayer.hand.clear()
+            
             currPlayer.hand.push(cardToDraw)
         })
 

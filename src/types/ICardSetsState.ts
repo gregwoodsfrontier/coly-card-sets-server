@@ -13,6 +13,26 @@ export enum GameState
 	Finished
 }
 
+export interface ICardSet extends Schema
+{
+    setA: ArraySchema
+
+    setB: ArraySchema
+
+    setC: ArraySchema
+}
+
+export interface IPlayer extends Schema 
+{
+    hand: ArraySchema
+
+    sets: MapSchema
+
+    points: number
+
+    id: number
+}
+
 export interface ICardSetsState extends Schema
 {
 	gameState: GameState
