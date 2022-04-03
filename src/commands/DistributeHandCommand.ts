@@ -14,16 +14,16 @@ export default class DistributeHandCommand extends Command<CardSets>
 	{
         // TODO: hand each player a card from the deck
         console.log('distribute hand')
+        let commandArr = []
 
-		return [
-            new DrawCommand().setPayload({
-                client: this.room.clients[0],
+        for(let i = 0; i < this.room.clients.length; i++)
+        {
+            commandArr.push(new DrawCommand().setPayload({
+                client: this.room.clients[i],
                 numToDraw: 1
-            }),
-            new DrawCommand().setPayload({
-                client: this.room.clients[1],
-                numToDraw: 1
-            })
-        ]
+            }))
+        }
+
+		return commandArr
 	}
 }

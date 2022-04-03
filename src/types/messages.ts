@@ -1,5 +1,5 @@
 export enum Message
 {
-	PlayerSelection,
+	PlayerCardSelection,
 	PlayerIndex
 }
