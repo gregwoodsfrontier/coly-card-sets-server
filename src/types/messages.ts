@@ -1,5 +1,6 @@
 export enum Message
 {
-	PlayerCardSelection,
-	PlayerIndex
+	PlayerIndex,
+	RequestPlayerSelect,
+	PlayerSelect
 }

@@ -13,13 +13,10 @@ export default class InitPlayersCommand extends Command<CardSets>
 {
 	execute()
 	{
-        // TODO: create a new player
-        let numID = 0
+        // TODO: create a new player for each client
+    
         this.room.clients.forEach((c: Client) => {
             this.room.state.players.set(c.sessionId, new Player())
-            const currPlayer = this.room.state.players.get(c.sessionId)
-            currPlayer.id = numID
-            numID += 1
         })
 
 		return [

@@ -26,7 +26,9 @@ export default class DrawCommand extends Command<CardSets>
         const cardsToDraw = this.room.state.deck.splice(0, numToDraw)
 
         cardsToDraw.forEach(e => {
-            playerToDraw.hand.push(e)
+            playerToDraw.hand.pop()
+            playerToDraw.hand.unshift(e)
+            // playerToDraw.hand.push(e)
         })
 
 		return

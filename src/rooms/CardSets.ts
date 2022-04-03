@@ -19,12 +19,12 @@ export class CardSets extends Room<CardSetsState> {
     // player makes selection to form a set
     
     // or player chooses which card to dump to common place
-    this.onMessage(Message.PlayerCardSelection, (client, message: { index: number }) => {
+    /* this.onMessage(Message.PlayerCardSelection, (client, message: { index: number }) => {
       this.dispatcher.dispatch(new PlayerSelectionCommand(), {
         client,
         index: message.index
       })
-    });
+    }); */
 
   }
 
