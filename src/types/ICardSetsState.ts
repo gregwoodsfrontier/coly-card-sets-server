@@ -45,7 +45,7 @@ export interface ICardSetsState extends Schema
 
 	deck: ArraySchema
 	
-	common: ArraySchema
+	pot: ArraySchema
 
 	activePlayer: number
 

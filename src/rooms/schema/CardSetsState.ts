@@ -1,13 +1,28 @@
 import { Schema, ArraySchema, MapSchema, type } from '@colyseus/schema'
-import ICardSetsState, { GameState, IPlayer } from '../../types/ICardSetsState'
+import ICardSetsState, { GameState, ICard, IPlayer } from '../../types/ICardSetsState'
+
+export class Card extends Schema implements ICard
+{
+    @type('number')
+    pattern: number
+
+    @type('number')
+	points: number
+
+    @type('string')
+	owner: string
+
+    @type('boolean')
+	isDiscarded: false
+}
 
 export class Player extends Schema implements IPlayer
 {
-    @type(['number'])
-    hand: ArraySchema
+    @type([Card])
+    hand: ArraySchema<Card>
 
-    @type(['number'])
-	sets: ArraySchema
+    @type([Card])
+	sets: ArraySchema<Card>
 
     @type('number')
 	points = 0
@@ -16,12 +31,8 @@ export class Player extends Schema implements IPlayer
     {
         super()
 
-        this.hand = new ArraySchema<number>(-1, -1, -1, -1)
-        this.sets = new ArraySchema<number>(
-            -1, -1, -1, 
-            -1, -1, -1,
-            -1, -1, -1
-        )
+        this.hand = new ArraySchema<Card>()
+        this.sets = new ArraySchema<Card>()
 
     }
 }
@@ -38,7 +49,7 @@ export class CardSetsState extends Schema implements ICardSetsState
     deck: ArraySchema<number>
 
 	@type(['number'])
-	common: ArraySchema<number>
+	pot: ArraySchema<number>
 
 	@type('number')
 	activePlayer = 0
@@ -54,7 +65,7 @@ export class CardSetsState extends Schema implements ICardSetsState
         this.createDeck()
         this.shuffleDeck()
 
-		this.common = new ArraySchema(-1, -1, -1, -1, -1, -1, -1)
+		this.pot = new ArraySchema()
 
         this.players = new MapSchema<Player>()
         // this.players.set("playerA", new Player())
