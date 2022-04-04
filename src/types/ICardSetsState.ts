@@ -25,7 +25,7 @@ export interface ICard extends Schema
 
 	owner: string
 
-	isDiscarded: false
+	isDiscarded: boolean
 }
 
 export interface IPlayer extends Schema

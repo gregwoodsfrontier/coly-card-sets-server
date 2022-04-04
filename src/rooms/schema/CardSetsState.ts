@@ -1,6 +1,9 @@
 import { Schema, ArraySchema, MapSchema, type } from '@colyseus/schema'
 import ICardSetsState, { GameState, ICard, IPlayer } from '../../types/ICardSetsState'
 
+const NUM_OF_PATTERN = 4
+const MAX_POINTS = 8
+
 export class Card extends Schema implements ICard
 {
     @type('number')
@@ -13,7 +16,16 @@ export class Card extends Schema implements ICard
 	owner: string
 
     @type('boolean')
-	isDiscarded: false
+	isDiscarded = false
+
+    constructor(_pattern: number = 0, _pts: number = 1)
+    {
+        super()
+
+        this.pattern = _pattern
+        this.points = _pts
+        this.owner = ""
+    }
 }
 
 export class Player extends Schema implements IPlayer
@@ -45,11 +57,11 @@ export class CardSetsState extends Schema implements ICardSetsState
     @type({ map: Player }) 
     players: MapSchema<Player>;
 
-    @type(["number"])
-    deck: ArraySchema<number>
+    @type([Card])
+    deck: ArraySchema<Card>
 
-	@type(['number'])
-	pot: ArraySchema<number>
+	@type([Card])
+	pot: ArraySchema<Card>
 
 	@type('number')
 	activePlayer = 0
@@ -68,14 +80,17 @@ export class CardSetsState extends Schema implements ICardSetsState
 		this.pot = new ArraySchema()
 
         this.players = new MapSchema<Player>()
-        // this.players.set("playerA", new Player())
+        
 	}
 
     createDeck()
     {
-        for(let i = 0; i < 32; i++)
+        for(let i = 0; i < NUM_OF_PATTERN; i++)
         {
-            this.deck.push(i)
+            for(let j = 1; j < MAX_POINTS; j++)
+            {
+                this.deck.push(new Card(i, j))
+            }
         }
     }
 
