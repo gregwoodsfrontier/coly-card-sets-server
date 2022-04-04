@@ -22,6 +22,10 @@ export interface ICard extends Schema
 	pattern: number
 
 	points: number
+
+	owner: string
+
+	isDiscarded: false
 }
 
 export interface IPlayer extends Schema
