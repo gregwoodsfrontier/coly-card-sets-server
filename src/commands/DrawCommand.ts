@@ -1,6 +1,7 @@
 import { Command } from '@colyseus/command'
 import { Client } from 'colyseus'
 import { CardSets } from "../rooms/CardSets"
+import { Card } from '../rooms/schema/CardSetsState'
 import { GameState } from '../types/ICardSetsState'
 
 type PayloadDraw = {
@@ -26,11 +27,20 @@ export default class DrawCommand extends Command<CardSets>
         const cardsToDraw = this.room.state.deck.splice(0, numToDraw)
 
         cardsToDraw.forEach(e => {
-            playerToDraw.hand.pop()
-            playerToDraw.hand.unshift(e)
-            // playerToDraw.hand.push(e)
+            this.assignOwner(e, client.sessionId)
+            e['$changes'].touch('pattern')
+            e['$changes'].touch('points')
+            e['$changes'].touch('owner')
+            e['$changes'].touch('isDiscarded')
+            
+            playerToDraw.hand.push(e)
         })
 
 		return
 	}
+
+    assignOwner(card: Card, sessionId: string)
+    {
+        card.owner = sessionId
+    }
 }
