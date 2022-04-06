@@ -1,74 +1,11 @@
 import { Schema, ArraySchema, MapSchema, type, filter } from '@colyseus/schema'
 import { Client } from 'colyseus'
 import ICardSetsState, { GameState, ICard, IPlayer } from '../../types/ICardSetsState'
+import Card from './Card'
+import Player from './Player'
 
 const NUM_OF_PATTERN = 4
 const MAX_POINTS = 8
-
-export class Card extends Schema implements ICard
-{
-
-    @type('string')
-	owner: string
-
-    @type('boolean')
-	isDiscarded = false
-
-    @filter(function(
-        this: Card,
-        client: Client,
-        value: Card['pattern'],
-        root: Schema
-    ){
-        return this.isDiscarded || this.owner === client.sessionId
-    })
-
-    @filter(function(
-        this: Card,
-        client: Client,
-        value: Card['points'],
-        root: Schema
-    ){
-        return this.isDiscarded || this.owner === client.sessionId
-    })
-
-    @type('number')
-    pattern: number
-
-    @type('number')
-	points: number
-    
-
-    constructor(_pattern: number = 0, _pts: number = 1)
-    {
-        super()
-
-        this.pattern = _pattern
-        this.points = _pts
-        this.owner = ""
-    }
-}
-
-export class Player extends Schema implements IPlayer
-{
-    @type([Card])
-    hand: ArraySchema<Card>
-
-    @type([Card])
-	sets: ArraySchema<Card>
-
-    @type('number')
-	points = 0
-
-    constructor()
-    {
-        super()
-
-        this.hand = new ArraySchema<Card>()
-        this.sets = new ArraySchema<Card>()
-
-    }
-}
 
 export class CardSetsState extends Schema implements ICardSetsState
 {

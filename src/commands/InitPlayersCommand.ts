@@ -1,7 +1,7 @@
 import { Command } from '@colyseus/command'
 import { Client } from 'colyseus'
 import { CardSets } from "../rooms/CardSets"
-import { Player } from '../rooms/schema/CardSetsState'
+import Player from '../rooms/schema/Player'
 import DistributeHandCommand from './DistributeHandCommand'
 
 type Payload = {
@@ -16,7 +16,7 @@ export default class InitPlayersCommand extends Command<CardSets>
         // TODO: create a new player for each client
     
         this.room.clients.forEach((c: Client) => {
-            this.room.state.players.set(c.sessionId, new Player())
+            this.room.state.players.set(c.sessionId, new Player(c.sessionId))
         })
 
 		return [
