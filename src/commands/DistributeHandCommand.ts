@@ -1,12 +1,7 @@
 import { Command, Dispatcher } from '@colyseus/command'
 import { Client } from 'colyseus'
 import { CardSets } from "../rooms/CardSets"
-import DrawCommand from './DrawCommand'
-
-type Payload = {
-	client: Client
-	index: number
-}
+import {DrawCommand, PayloadDraw} from './DrawCommand'
 
 export default class DistributeHandCommand extends Command<CardSets>
 {

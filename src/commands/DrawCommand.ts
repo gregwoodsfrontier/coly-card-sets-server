@@ -4,12 +4,12 @@ import { CardSets } from "../rooms/CardSets"
 import Card from '../rooms/schema/Card'
 import { GameState } from '../types/ICardSetsState'
 
-type PayloadDraw = {
+export type PayloadDraw = {
 	client: Client,
     numToDraw: number
 }
 
-export default class DrawCommand extends Command<CardSets>
+export class DrawCommand extends Command<CardSets>
 {
 	execute(data: PayloadDraw)
 	{
