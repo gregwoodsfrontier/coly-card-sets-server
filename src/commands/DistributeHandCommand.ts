@@ -1,6 +1,7 @@
 import { Command, Dispatcher } from '@colyseus/command'
 import { Client } from 'colyseus'
 import { CardSets } from "../rooms/CardSets"
+import BoardcastTurnStartCommand from './BoardcastTurnStart'
 import {DrawCommand, PayloadDraw} from './DrawCommand'
 
 export default class DistributeHandCommand extends Command<CardSets>
@@ -18,6 +19,8 @@ export default class DistributeHandCommand extends Command<CardSets>
                 numToDraw: 1
             }))
         }
+
+        commandArr.push(new BoardcastTurnStartCommand())
 
 		return commandArr
 	}
