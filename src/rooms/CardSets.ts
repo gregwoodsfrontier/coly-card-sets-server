@@ -6,6 +6,10 @@ import { GameState } from "../types/ICardSetsState";
 import PlayerSelectionCommand from "../commands/PlayerSelectionCommand";
 import InitPlayersCommand from "../commands/InitPlayersCommand";
 
+export interface IMessage {
+  index: number
+}
+
 export class CardSets extends Room<CardSetsState> {
 
   private dispatcher = new Dispatcher(this)
@@ -15,6 +19,14 @@ export class CardSets extends Room<CardSetsState> {
     this.maxClients = 2
 
     this.setState(new CardSetsState())
+
+    // receive message and then proceed to next step
+    this.onMessage(Message.ConfirmTurnStart, (client: Client, data: IMessage) => {
+      console.log('confirm turn start')
+      // const passivePlayer = this.state.activePlayer === 0 ? 1 : 0
+      // console.log(`passive : ${passivePlayer}`)
+      this.broadcast(Message.CloseTurnStartDialog)
+    })
 
     // player makes selection to form a set
     
